@@ -1,0 +1,16 @@
+#!groovy
+//noinspection GroovyUnusedAssignment
+@Library("Infrastructure") _
+
+import uk.gov.hmcts.contino.Environment
+
+Environment environment = new Environment(env)
+
+onMaster {
+  sharedInfrastructurePipeline('fees', environment.nonProdName, 'nonprod')
+  sharedInfrastructurePipeline('fees', environment.prodName, 'prod')
+}
+
+onDemo {
+  sharedInfrastructurePipeline('fees', environment.demoName, 'nonprod')
+}
